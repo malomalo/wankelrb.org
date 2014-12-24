@@ -329,7 +329,6 @@ select.custom {
   text-indent: 1px;
   text-overflow: '';
   -webkit-border-radius: 0;
-  background: white right center no-repeat;
   outline: 1px;
   padding: 0 10px;
   cursor: pointer;
@@ -397,7 +396,6 @@ input[type="email"], input[type="number"], input[type="password"], input[type="s
       text-indent: 1px;
       text-overflow: '';
       -webkit-border-radius: 0;
-      background: #ededed right center no-repeat;
       outline: 1px;
       padding: 0 10px;
       padding-right: 30px;
@@ -422,7 +420,6 @@ input[type=checkbox].custom {
   padding: 0;
   box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.2); }
   input[type=checkbox].custom:checked {
-    background: white no-repeat center center;
     background-size: contain; }
 
 .loader-dots {
