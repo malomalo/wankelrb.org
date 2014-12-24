@@ -4,7 +4,6 @@ highlighter: rouge
 exclude:
   - Gemfile
   - Gemfile.lock
-  - CNAME
 assets:
   sources:
     - _assets/fonts
