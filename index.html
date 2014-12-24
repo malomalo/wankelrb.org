@@ -1,0 +1,229 @@
+---
+layout: default
+title: Wankel
+---
+<div class="intro">
+    An open-source <a href="https://www.ruby-lang.org/">Ruby</a> library for JSON parsing and encoding.
+</div>
+
+<div class="downloads">
+    <a class="btn outline" href="https://github.com/malomalo/wankel/">Github</a>
+    <a class="btn green" href="https://rubygems.org/gems/wankel">{% icon download %}Install {% gem_version wankel %}</a>
+</div>
+
+<div class="docs">
+    <div class="docs-container">
+        <h2>Getting Started</h2>
+        
+        <p class="center">
+            Wankel makes it easy to parse and encode Objects and deal with JSON
+            streams.
+        </p>
+        <p class="center">
+            A Tree model parser/encoder interface (ie. DOM tree in libxml2) and
+            a Event based parser/encoder interface (ie. SAX interface in libxml2)
+            are provided.
+        </p>
+        
+        <h3>Installation</h3>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    Wankel requires Ruby 2.0 or greater.
+                </p>
+                <p>
+                    Currently the only dependency is
+                    <a href="https://lloyd.github.io/yajl/">YAJL 2</a>
+                </p>
+            </div>
+            <div class="code">
+OS X
+{% highlight bash %}
+brew install yajl
+gem install wankel
+{% endhighlight %}
+
+Ubuntu 14.04+
+{% highlight bash %}
+apt-get install libyajl-dev
+gem install wankel
+{% endhighlight %}
+
+Arch Linux
+{% highlight bash %}
+pacman -S yajl
+gem install wankel
+{% endhighlight %}
+
+Source
+{% highlight bash %}
+curl -L -o 'yajl-2.1.0.tar.gz' http://github.com/lloyd/yajl/tarball/2.1.0
+tar -xf yajl-2.1.0.tar.gz
+cd lloyd-yajl-*
+./configure
+make install
+
+gem install wankel
+{% endhighlight %}
+
+            </div>
+        </div>
+        
+
+        <h3>Parsing</h3>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    <code>Viking.Model</code> extends
+                    <a href="http://backbonejs.org/#Model">Backbone.Model</a> adding
+                    naming, associations, data type coerions, selection, and modifies
+                    sync to work with <a href="http://rubyonrails.org/">Ruby on Rails</a>
+                    out of the box.
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                    Your are not required to pass a name. In this example the name
+                    <code>"ship"</code> allows Viking automatically read and build the associations
+                    and generate any urls.
+                </p>
+            </div>
+            <div class="code">
+{% highlight ruby %}
+Wankel.parse('{"key": "value"}') # => {"key" => "value"}
+
+# Options
+{% endhighlight %}
+            </div>
+        </div>
+        
+        <h4>Streaming</h4>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    <code>belongsTo</code> takes and array of names for the
+					associations. By default a <code>get('fleet')</code> in the
+					example would return <code>undefined</code> on a new instance
+					of the model.
+                </p>
+                <p>
+                    You can set the fleet with the normal <code>set</code> function
+					or through the inital attributes. Both accept either an model
+					or the attributes used to construct the model.
+                </p>
+            </div>
+            <div class="code">
+{% highlight ruby %}
+class SimpleParser < Wankel::SaxParser
+  def on_array_start
+    puts "Array start"
+  end
+  def on_string(string)
+    puts string
+  end
+end
+
+parser = SimpleParser.new
+parser.parse('["string1", null, "string2"]')
+# => "Array start"
+# => "string1"
+# => "string2"
+{% endhighlight %}
+            </div>
+        </div>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    If the model name is different than the association name you can
+                    pass the model name as an option.
+                </p>
+            </div>
+            <div class="code">
+{% highlight javascript %}
+belongsTo: ['village'];
+// or
+belongsTo: [['owner', {model: 'Village'}]];
+{% endhighlight %}
+            </div>
+        </div>
+        
+        <h3>Encoding</h3>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    <code>Viking.Collection</code> extends
+                    <a href="http://backbonejs.org/#Collection">Backbone.Collection</a>,
+                    adding predicates, selections, and modifies fetch to cancel any
+                    current request if a new fetch is triggered.
+                </p>
+            </div>
+            <div class="code">
+{% highlight ruby %}
+Wankel.encode({"key" => "value"}) # => '{"key":"value"}'
+{% endhighlight %}
+            </div>
+        </div>
+        
+        <h4>Streaming</h4>
+        <div class="section">
+            <div class="notes">
+                <p>
+                    In addition if you want paginate your results you can also use a
+                    <code>Viking.PaginatedCollection</code>
+                </p>
+                <p>
+                    A <code>Viking.PaginatedCollection</code> expects the response from the server
+                    to be similar to the example.
+                </p>
+                <p>
+                    The paginated collection will have a <code>Viking.Cursor</code>
+                    available at <code>collection.curosr</code>. Any changes to the
+                    attributes <code>page</code>, <code>offset</code>, or
+                    <code>per_page</code> will trigger a fetch on the collection.
+                </p>
+        
+                <p>
+                    The cursor has several helper functions to allow you to navigate.
+                    The functions are <code>reset</code>, <code>incrementPage</code>,
+                    <code>decrementPage</code>, and <code>goToPage</code>.
+                </p>
+            </div>
+            <div class="code">
+{% highlight ruby %}
+output = StringIO.new
+encoder = Wankel::SaxEncoder.new(output)
+
+encoder.map_open
+encoder.string("key")
+encoder.number(123)
+encoder.string("type")
+encoder.value("value-determined-by-method")
+encoder.map_close
+encoder.flush
+
+output.string # => '{"key":123,"type":"value-determined-by-method"}'
+{% endhighlight %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="footer">
+    <div class="footer-container">
+        <h2>Contributors</h2>
+        <p>
+            Wankel is open source tool created for use at <a href="http://42floors.com">42Floors</a>.
+        </p>
+        <p>
+            Please report bugs on the <a href="https://github.com/malomalo/wankel/issues">GitHub issues page</a>.
+        </p>
+        {% contributors malomalo/wankel %}
+        <h2>Licensing</h2>
+        <p>
+            Wankel is released under the
+            <a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a>
+        </p>
+    </div>
+</div>
+

@@ -1,0 +1,171 @@
+body{
+    font-family:$raleway;
+    background:white;
+}
+a{
+    text-decoration:none;
+}
+.header{
+    @include outer-container;
+    padding:20px;
+    .header-container{
+        @include outer-container;
+        @include row(table);
+    }
+    .logo{
+        display:block;
+        text-align:center;
+        margin:20px 0;
+        img{
+            height:150px;
+            width:auto;
+        }
+        .tagline{
+            margin-top:-40px;
+            margin-right:-165px;
+            color:lighten($gray, 10);
+        }
+    }
+    .nav{
+        display:block;
+        text-align:center;
+        vertical-align:middle;
+    }
+    img{
+        @include inline-block;
+        vertical-align:-4px;
+    }
+    .title{
+        margin-left:10px;
+        font-weight:100;
+        font-size:32px;
+        a{
+            color:$gray;
+        }
+    }
+}
+
+.intro{
+    @include outer-container;
+    padding:20px;
+    text-align:center;
+    font-size:15pt;
+    font-weight:300;
+    line-height:1.5em;
+}
+.downloads{
+    margin:20px 0 30px 0;
+    display:block;
+    text-align:center;
+    vertical-align:middle;
+    padding:20px;
+    .btn{
+        font-size:1.2em;
+        padding-top: 0;
+        padding-bottom:0;
+        line-height:42px;
+    }
+    .icon{
+        vertical-align:bottom;
+        margin-right:10px;
+        font-size:1.3em;
+    }
+}
+h1,h2{
+    font-size:20pt;
+    font-weight:300;
+    margin-bottom:20px;
+    color:black;
+    text-align:center;
+}
+h3{
+    color:#86AC18;
+    font-weight:bold;
+    text-transform:uppercase;
+    font-size:1.4em;
+    margin:10px 0;
+    margin-top:100px;
+}
+h4{
+    font-weight:bold;
+    font-size:1.1em;
+    margin:10px 0;
+    margin-top:20px;
+}
+.docs{
+    background:lighten($background, 3);
+    margin-top:30px;
+    border-top:1px solid darken($background, 10);
+    padding:60px 40px;
+    .docs-container{
+        @include outer-container;
+    }
+    p{
+        margin:15px 0;
+        line-height:1.6em;
+    }
+    .section, .sub-section{
+        @include row(table);
+        .notes{
+            @include span-columns(6);
+            vertical-align:top;
+            padding-right:40px;
+        }
+        .code{
+            @include span-columns(6);
+            vertical-align:top;
+        }
+        @include media($mobile){
+            display:block;
+            .code, .notes{
+                display:block;
+                width:100%;
+            }
+        }
+    }
+    @include media($mobile){
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .links{
+        overflow:hidden;
+        margin:10px 0;
+        li{
+            display:block;
+            padding:5px 0;
+            .icon{
+                font-size:1.5em;
+                vertical-align:-.2em;
+                margin-right:.2em;
+            }
+        }
+    }
+}
+.footer{
+    border-top:1px solid darken($background, 10);
+    text-align:center;
+    padding-bottom:100px;
+    .contributor{
+        @include inline-block;
+        margin:10px 20px;
+        img{
+            border-radius:50%;
+            border:1px solid darken(white, 15);
+            margin-bottom:5px;
+            width:70px;
+        }
+        .name{
+            display:block;
+        }
+    }
+    h2{
+        margin:30px 0;
+    }
+    p{
+        margin:15px 0;
+        line-height:1.6em;
+    }
+    .footer-container{
+        @include outer-container;
+    }
+}
