@@ -104,6 +104,13 @@ h4{
         margin:15px 0;
         line-height:1.6em;
     }
+    .notes > p:first-child{
+        margin:0;
+        line-height:1.6em;
+    }
+    .code .highlight:first-child > pre{
+      margin:0 0 15px 0 !important;
+    }
     .section, .sub-section{
         @include row(table);
         .notes{
